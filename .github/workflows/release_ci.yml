@@ -30,5 +30,4 @@ jobs:
           VERSION=${NAME:1}
           echo $VERSION
           echo ${GITHUB_REF_NAME}
-      - name: Display Tag Name
-        run: echo "Tag Name: ${{ github.event.release.tag_name }}"
+          echo ${github.event.release.tag_name}
