@@ -41,3 +41,4 @@ jobs:
           echo "DEPLOY_ENV=feature" >> $GITHUB_OUTPUT
           echo "TAG=feature" >> $GITHUB_OUTPUT
           echo "for feature branch"
+        fi
