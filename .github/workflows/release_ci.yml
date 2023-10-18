@@ -15,19 +15,28 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
 
 jobs:
-  lint_backend:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
-        node: [18]
+  settings:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    outputs:
+      DEPLOY_ENV: ${{ steps.branch-vars.outputs.DEPLOY_ENV }}
+      TAG: ${{ steps.branch-vars.outputs.TAG }}
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v3
-      - name: Checkout repository and submodules
-        run: |
-          NAME=${GITHUB_REF_NAME}
-          echo ${{ github.event_name }}
-          VERSION=${NAME:1}
-          echo $VERSION
-          echo ${GITHUB_REF_NAME}
+    - name: Set output vars by branch name
+      id: branch-vars
+      run: |
+        NAME=${GITHUB_REF_NAME}
+        VERSION=${NAME:1}
+        echo ${{ github.event_name }}
+        if [[ ${GITHUB_REF##*/} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ and ${{ github.event_name }} == 'release']]; then
+          echo "DEPLOY_ENV=production" >> $GITHUB_OUTPUT
+          echo "TAG=$VERSION" >> $GITHUB_OUTPUT
+          echo "run production when only publish"
+        elif [[ ${GITHUB_REF##*/} == "main" ]]; then
+          echo "DEPLOY_ENV=development" >> $GITHUB_OUTPUT
+          echo "TAG=development" >> $GITHUB_OUTPUT
+          echo "run production when only merge to main"
+        else
+          echo "DEPLOY_ENV=feature" >> $GITHUB_OUTPUT
+          echo "TAG=feature" >> $GITHUB_OUTPUT
+          echo "for feature branch"
