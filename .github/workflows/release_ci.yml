@@ -21,8 +21,6 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         node: [18]
-    env:
-      SENSYN_ID_URI: 'http://test.sensyn.net'
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v3
@@ -31,6 +29,5 @@ jobs:
           NAME=${GITHUB_REF_NAME}
           VERSION=${NAME:1}
           echo VERSION
-          echo ${steps.check_release.outputs.release}
           echo ${GITHUB_REF_NAME}
           run: echo "Tag Name: ${{ github.event.release.tag_name }}"
