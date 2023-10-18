@@ -1,0 +1,30 @@
+name: release_ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feature/*"
+      - "main"
+      - "master"
+      - "hotfix/*"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
+
+jobs:
+  lint_backend:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        node: [18]
+    env:
+      SENSYN_ID_URI: 'http://test.sensyn.net'
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+      - name: Checkout repository and submodules
+        run: |
+          NAME=${GITHUB_REF_NAME}
+          VERSION=${NAME:1}
+          echo VERSION
