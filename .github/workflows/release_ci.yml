@@ -27,7 +27,7 @@ jobs:
       - name: Checkout repository and submodules
         run: |
           NAME=${GITHUB_REF_NAME}
+          echo ${{ github.event_name }}
           VERSION=${NAME:1}
           echo $VERSION
           echo ${GITHUB_REF_NAME}
-          echo ${github.event.release.tag_name}
