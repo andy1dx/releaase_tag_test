@@ -33,4 +33,4 @@ jobs:
           echo VERSION
           echo ${steps.check_release.outputs.release}
           echo ${GITHUB_REF_NAME}
-          echo ${github.event.release.tag_name}
+          run: echo "Tag Name: ${{ github.event.release.tag_name }}"
