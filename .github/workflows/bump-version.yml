@@ -1,0 +1,39 @@
+name: Bump Package Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        description: 'Select the version bump type'
+        required: true
+        default: 'minor'
+        options:
+          - 'minor'
+          - 'major'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Bump Version
+        run: |
+          if [ "${{ github.event.inputs.bump-type }}" == 'minor' ]; then
+            npm version minor
+          else
+            npm version major
+          fi
+
+      - name: Push changes to repository
+        run: |
+          git push --follow-tags
