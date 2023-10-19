@@ -6,8 +6,9 @@ on:
       bump-type:
         description: 'Select the version bump type'
         required: true
-        default: 'minor'
+        default: 'patch'
         options:
+          - 'patch'
           - 'minor'
           - 'major'
 
@@ -18,6 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
+      - name: Setup Github
+      - run: |
+        git config --global user.email "william-andy@sensyn-robotics.com"
+        git config --global user.name "andy william"
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -28,9 +34,11 @@ jobs:
 
       - name: Bump Version
         run: |
-          if [ "${{ github.event.inputs.bump-type }}" == 'minor' ]; then
+          if [ "${{ github.event.inputs.bump-type }}" == 'patch' ]; then
             npm version minor
-          else
+          elif [ "${{ github.event.inputs.bump-type }}" == 'minor' ]; then
+            npm version minor
+          elif [ "${{ github.event.inputs.bump-type }}" == 'major' ]; 
             npm version major
           fi
 
