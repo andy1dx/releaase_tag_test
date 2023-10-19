@@ -23,6 +23,7 @@ jobs:
         run: |
           git config --global user.email "william-andy@sensyn-robotics.com"
           git config --global user.name "andy william"
+          git remote set-url origin https://andy1dx:${{ secrets.TOKEN }}@github.com/andy1dx/releaase_tag_test.git
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
