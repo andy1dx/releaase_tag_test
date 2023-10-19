@@ -29,6 +29,8 @@ jobs:
 
       - name: Push changes to repository
         run: |
+          git config --global user.email "william-andy@sensyn-robotics.com"
+          git config --global user.name "andy william"
           if [ "${{ github.event.inputs.bump-type }}" == 'patch' ]; then
             npm version patch
           elif [ "${{ github.event.inputs.bump-type }}" == 'minor' ]; then
@@ -36,7 +38,5 @@ jobs:
           elif [ "${{ github.event.inputs.bump-type }}" == 'major' ]; then
             npm version major
           fi
-          git config --global user.email "william-andy@sensyn-robotics.com"
-          git config --global user.name "andy william"
           git remote set-url origin https://andy1dx:${{ secrets.TOKEN }}@github.com/andy1dx/releaase_tag_test.git
           git push --follow-tags
