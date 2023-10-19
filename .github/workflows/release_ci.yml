@@ -16,7 +16,6 @@ on:
 jobs:
   settings:
     runs-on: ubuntu-20.04
-    if: ${GITHUB_REF} =~ ^refs/tags/^v[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+$
     timeout-minutes: 5
     outputs:
       DEPLOY_ENV: ${{ steps.branch-vars.outputs.DEPLOY_ENV }}
