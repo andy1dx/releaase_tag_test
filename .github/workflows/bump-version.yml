@@ -27,7 +27,7 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Bump Version
+      - name: Push changes to repository
         run: |
           if [ "${{ github.event.inputs.bump-type }}" == 'patch' ]; then
             npm version patch
@@ -36,9 +36,6 @@ jobs:
           elif [ "${{ github.event.inputs.bump-type }}" == 'major' ]; then
             npm version major
           fi
-
-      - name: Push changes to repository
-        run: |
           git config --global user.email "william-andy@sensyn-robotics.com"
           git config --global user.name "andy william"
           git remote set-url origin https://andy1dx:${{ secrets.TOKEN }}@github.com/andy1dx/releaase_tag_test.git
