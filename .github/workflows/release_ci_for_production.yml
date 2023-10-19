@@ -1,13 +1,6 @@
-name: release_ci
+name: release_ci_production
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - "feature/*"
-      - "main"
-      - "master"
-      - "hotfix/*"
   release:
     types:
       - published

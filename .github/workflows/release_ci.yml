@@ -1,7 +1,6 @@
 name: release_ci
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - "feature/*"
