@@ -39,4 +39,4 @@ jobs:
             npm version major
           fi
           git remote set-url origin https://andy1dx:${{ secrets.TOKEN }}@github.com/andy1dx/releaase_tag_test.git
-          git push --follow-tags
+          git push origin HEAD:main
