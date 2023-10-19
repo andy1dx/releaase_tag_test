@@ -1,0 +1,34 @@
+name: release_ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feature/*"
+      - "main"
+      - "master"
+      - "hotfix/*"
+  release:
+    types:
+      - published
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  settings:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    outputs:
+      DEPLOY_ENV: ${{ steps.branch-vars.outputs.DEPLOY_ENV }}
+      TAG: ${{ steps.branch-vars.outputs.TAG }}
+    steps:
+    - name: Set output vars by branch name
+      id: branch-vars
+      run: |
+        NAME=${GITHUB_REF_NAME}
+        VERSION=${NAME:1}
+        EVENT_NAME=${{ github.event_name }}
+        echo ${{ github.sha }}
+        echo $EVENT_NAME
+        echo $VERSION
+        echo $NAME

@@ -29,10 +29,10 @@ jobs:
         VERSION=${NAME:1}
         EVENT_NAME=${{ github.event_name }}
         echo $EVENT_NAME
-        if [[ ${GITHUB_REF##*/} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ && "$EVENT_NAME" == 'release' ]]; then
+        if [[ ${GITHUB_REF##*/} =~ ^vv[0-9]+.[0-9]+.[0-9]+-rc[0-9]+$ && "$EVENT_NAME" == 'release' ]]; then
           echo "DEPLOY_ENV=production" >> $GITHUB_OUTPUT
           echo "TAG=$VERSION" >> $GITHUB_OUTPUT
-          echo "run production when only publish"
+          echo "run staging when only publish"
         elif [[ ${GITHUB_REF##*/} == "main" ]]; then
           echo "DEPLOY_ENV=development" >> $GITHUB_OUTPUT
           echo "TAG=development" >> $GITHUB_OUTPUT
