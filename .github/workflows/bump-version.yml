@@ -27,16 +27,12 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          version-type:  ${{ github.event.inputs.bump-type }}
       - name: Push changes to repository
         run: |
-          git config --global user.email "william-andy@sensyn-robotics.com"
-          git config --global user.name "andy william"
-          if [ "${{ github.event.inputs.bump-type }}" == 'patch' ]; then
-            npm version patch
-          elif [ "${{ github.event.inputs.bump-type }}" == 'minor' ]; then
-            npm version minor
-          elif [ "${{ github.event.inputs.bump-type }}" == 'major' ]; then
-            npm version major
-          fi
-          git remote set-url origin https://andy1dx:${{ secrets.TOKEN }}@github.com/andy1dx/releaase_tag_test.git
-          git push origin HEAD:main
+          cat package.json
