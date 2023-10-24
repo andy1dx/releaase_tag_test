@@ -28,7 +28,7 @@ jobs:
         run: npm install
 
       - name:  'Automated Version Bump'
-        uses:  'phips28/gh-action-bump-version@main'
+        uses:  'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
