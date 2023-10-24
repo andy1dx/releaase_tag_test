@@ -33,6 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           version-type:  ${{ github.event.inputs.bump-type }}
+          skip-tag:  'true'
       - name: Push changes to repository
         run: |
           cat package.json
